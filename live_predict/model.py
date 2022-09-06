@@ -150,13 +150,13 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 
 def predict(geom, experiment, steps):
   geom = np.expand_dims(geom,[0,3])
-  checkpoint.read(experiment+'/checkpoint_'+str(steps))
+  checkpoint.read('trained_weights/'+experiment+'/checkpoint_'+str(steps))
   prediction = generator(geom)
   output = prediction * geom
   return output.numpy()
 
 def judge(case, experiment, steps):
-  checkpoint.read(experiment+'/checkpoint_'+str(steps))
+  checkpoint.read('trained_weights/'+experiment+'/checkpoint_'+str(steps))
   geom          = case[...,0]
   case          = np.expand_dims(case,0)
   geom_ext      = np.expand_dims(geom,[0,-1])
