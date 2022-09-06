@@ -1,10 +1,3 @@
-# # -*- coding: utf-8 -*-
-# """
-# Created on Wed Nov  3 16:35:05 2021
-
-# @author: mirko
-# """
-
 print("create images")
 
 import numpy as np
@@ -38,7 +31,6 @@ L_sample = 3
 l = 0.5
 D = 1
 
-# print(float(geolines[6][5:-2]))
 
 params = np.load(case+'_params.npy')
 opoints = np.load(case+'_obstacle.npy')
@@ -79,12 +71,6 @@ nonans[:,:,1] = interpolate.griddata(XY, Ux, (xx,yy),method='nearest')
 nonans[:,:,2] = interpolate.griddata(XY, Uy, (xx,yy),method='nearest')
 nonans[:,:,3] = interpolate.griddata(XY, p, (xx,yy),method='nearest')
 dataset[np.where(np.isnan(dataset))] = nonans[np.where(np.isnan(dataset))]
-# dataset[:,:,3] = dataset[:,:,3] - np.amin(nonans[:,:,3])
-
-# Ux_regn = interpolate.griddata(XY, Ux, (xx,yy),method='nearest')
-# Uy_regn = interpolate.griddata(XY, Uy, (xx,yy),method='nearest')
-# p_regn  = interpolate.griddata(XY, p, (xx,yy),method='nearest')
-
 
 
 # reset points outside walls
@@ -93,7 +79,6 @@ dataset[np.logical_and(xx < l, yy > H), :] = 0
 
 
 # get obstacle coordinates
-
 ob_start = 33
 
 xxre = np.reshape(xx, np.size(xx))
@@ -111,13 +96,6 @@ obs_logic = np.reshape(obs_logic, np.shape(xx)) == 1
 
 dataset[obs_logic,:] = 0
 
-# dataset = np.empty[]
-# plt.imshow(dataset[:,:,3])
-# plt.colorbar()
-# plt.savefig("test.png")
-
-# print(dataset[:,:,1])
-# dataset[:,:,0] = dataset[:,:,1]
 
 if os.path.exists('/mnt/d/UbuntuPortal/obstacles/uniform_gen/arrays/'+case+'.npy'):
   os.remove('/mnt/d/UbuntuPortal/obstacles/uniform_gen/arrays/'+case+'.npy') 
@@ -138,7 +116,6 @@ for file in os.listdir():
         tsteps.append(int(file))
 
 if np.max(np.array(tsteps)) % 100 == 0 and np.max(np.array(tsteps)) != 2500:
-    # print('failed')
     pass
 
 elif np.std(dataset[:,-20:,1]) > 0.01 and np.amax(np.abs(dataset)) < 100: 
@@ -152,11 +129,5 @@ elif np.std(dataset[:,-20:,1]) > 0.01 and np.amax(np.abs(dataset)) < 100:
     with open('/mnt/d/UbuntuPortal/obstacles/uniform_gen/arrays/'+case+'.npy', 'wb') as f:
         np.save(f, dataset)
 
-# loaded = np.load('/mnt/d/UbuntuPortal/obstacles/arrays/'+case+'.npy')
 
 os.chdir("..")
-
-# print(np.amax(np.abs(loaded - dataset)))
-
-# plt.imshow(Ux_reg)
-# plt.savefig("geom.png")
