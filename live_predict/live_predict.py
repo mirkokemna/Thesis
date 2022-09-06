@@ -17,7 +17,6 @@ import subprocess
 import os, sys
 import shutil
 from PIL import Image
-sys.path.insert(1, '/home/mirko/evaluate')
 from model import predict
 
 show_vectors = False
