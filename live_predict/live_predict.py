@@ -25,9 +25,9 @@ if len(sys.argv) > 1:
         show_vectors = True
 
 
-model_A = 'GAN_baseline'
+model_A = 'pure_GAN'
 model_B = 'mixed_1GAN_10L1'
-model_C = 'L1'
+model_C = 'pure_L1'
 
 steps = 50000
 
